@@ -1,0 +1,16 @@
+display: flex | inline-flex
+flex-direction: row | column
+flex-wrap: wrap | nowrap | wrapreverse
+flex-basis: <length> //WIDTH
+justify-content: flex-start | flex-end | center | space-between | space-around
+align-self: flex-start | flex-end | center
+align-items: flex-start | flex-end | center
+align-content: flex-start | flex-end | center
+flex-grow: <number>
+flex-shrink: <number>
+flex: <integer>
+order: <integer>
+
+@media(min-width: 468px){
+    Takes effect for screens greater than or equal to param
+}

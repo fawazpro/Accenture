@@ -1,0 +1,237 @@
+
+a{
+    text-decoration-line: none;
+    color: inherit;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+a:hover{
+    color: #393;
+    transition: 0.5ms ease-in-out;
+    -webkit-transition: 0.5s all;
+
+}
+p, li{
+    font-family: Lato, 'Lucida Sans';
+}
+
+footer{
+    text-align: center;
+    height: 5vh;
+    background-color: #393
+}
+
+.navbar{
+    display: flex;    
+    flex-wrap: nowrap;
+    margin: 0px;
+    padding: 0px;
+    background-color: #393;
+    /*height: 20vh;*/
+}
+.logo{
+    flex: 1;
+    margin: 0px;
+    padding: 0px 0px 5px 30px;
+}
+.logo p{
+    font-size: 30px;
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+.logo h4{  
+   
+}
+.logo span{
+    font-size: 18px;
+    font-family: 'Lucida Sans';
+    font-style: italic;
+    line-height: 0;
+    color: cornsilk;
+}
+
+.notifbar{
+    flex: 1;
+    padding: 15px 0px 5px 30px;
+}
+.notifbar ul{
+    /*display: inline;*/
+}
+.notifbar ul li{
+    display: inline;
+    font-size: 1.1em;
+    margin-right: 27px;
+    vertical-align: middle;
+    color: #fff;
+    list-style: none;
+
+    /*border: #fff, 10px, solid;*/
+}
+
+.notifbar ul li a {
+    color: #fff;
+	transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.notifbar ul li a:hover {
+    color: #aaa;
+}
+
+.searchbar{
+    flex: 1;
+    margin: 20px 0px 0px 0px;
+    padding: 5px 10px 5px 20px;
+}
+.searchbar input{
+    margin: 0px;
+    border: ridge 1px #ffffff;
+    height: 32px;
+}
+.searchbar button{
+    /*outline: none;*/
+    padding: 10px 0 11px;
+    border: solid 1px #393;
+    background-color: #393;
+}
+.breadcrumb{
+    height: 7vh;
+    border: .5px solid #ddd;
+    background-color: #ddd;
+    margin: 5px;
+    
+}
+.breadcrumb ol li{
+    /*padding-left: 25vw;*/
+    list-style-type: none;
+    display: inline-block;
+}
+.breadcrumb ol p{
+    padding-left: 8vw;
+    padding-right: 8vw;
+     display: inline;
+}
+.container{
+
+    height: 70vh;
+    /*border: .5px solid #ddd;*/
+    margin: 0px 28px 11px;
+    display: flex;
+    flex-basis: 50px;
+}
+.dashboard{
+    flex: 1;
+        flex-basis: 50px;
+
+    border: .5px solid #ddd;
+    margin: 5px;
+    padding-top: 0px;
+}
+.dashboard h4, .main h4{
+        color: #fff;
+        margin-top: 0px;
+        padding: 5px;
+        border: .5px solid #ddd;
+        background-color: #393;
+        font-weight: 2px;
+        text-align: left;
+        font-family: 'Trebuchet MS';
+        font-size: 18px;
+}
+.dashboard li{
+    font-size: 1.1em;
+    /*margin-right: 27px;*/
+    vertical-align: middle;
+    color: #777;
+    list-style: circle;
+    /*line-height: 27px;*/
+}
+.main{
+     flex: 4;
+    border: .5px solid #ddd;
+    margin: 5px;
+}
+
+.clearfix{
+    float: none;
+}
+.footer{
+    font-weight: 20px;
+    font-size: 15px;
+    margin: 15px;
+
+}
+
+.wallpaper{
+    width:100vw;
+    height:100vh;
+    background: turquoise;
+    margin: 0px;
+    padding-top: 12vh;
+
+}
+
+.formm{
+    background: greenyellow;
+    margin: auto;
+    width: 450px;
+    padding: auto;
+    padding-top: 20px;
+}
+.formm h3{
+    text-align: center;
+    color: white;
+}
+.formm input{
+
+    border: 1px solid gray;
+    width: 390px;
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    /*line-height: 10px;*/
+
+}
+.formm button{
+     width: 390px;
+    height: 40px;
+    background: red;
+    color: white;
+     margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.formm button{
+     width: 390px;
+    height: 40px;
+    background: red;
+    color: white;
+}
+.formm button:hover{
+    background: black;
+}
+.formm p{
+    text-align: center;
+}
+.formm ::-webkit-input-placeholder{
+    text-align: center;
+    color: grey;
+}
+.social{
+        align-content: center;
+
+}
+.social a img{
+    border: 2px solid black;
+    background: black;
+    border-radius: 50%;
+}
+
+.social a:hover img:{
+    background: red;
+    border-radius: 10%;
+}
