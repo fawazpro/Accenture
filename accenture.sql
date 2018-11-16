@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 
+=======
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+>>>>>>> 02ca77beea869a156880c8f19ba2454de7f1d266
 -- Host: 127.0.0.1
 -- Generation Time: Nov 16, 2018 at 06:29 AM
 -- Server version: 10.1.16-MariaDB
