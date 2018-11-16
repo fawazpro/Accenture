@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>ACCENTURE Competition</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+	<!--<header>This is the header</header>-->
+	<div class="navbar">
+		<div class="logo">
+			<p>Accenture<span> Innovation</span></p>
+		</div>
+		<div class="notifbar">
+			<ul>
+				<li><a href=""><img src="images/avatar.png" alt="avatar"></a></li>
+				<li><a href=""><img src="images/bell.png" alt="notification"></a></li>
+				<li><a href=""><img src="images/mail.png" alt="message"></a></li>
+			</ul>
+		</div>
+		<form class="searchbar">
+			<input type="search" name="search" placeholder="Search here...">
+			<!--<button type="submit"><img src="images/search.png" alt=""></button>-->
+		</form>
+	</div>
+
+	<div class="breadcrumb">
+		<ol>
+			<li>
+				<button onclick="home()" >Home</button>
+			</li>
+			<p>>></p>
+			<li id="active">Current</li>
+		</ol>
+
+	</div>
+
+
+	<div class="container">
+		<div class="dashboard">
+			<h4>Dashboard</h4>
+			<span>Welcome, Manager</span>
+			<ul>
+				<li><span>Human Relation</span></li>
+				<button><li onclick="addprof()">Add Profiles</li></button>
+				<li><a href="">Edit Profiles</a></li>
+				<li><a href="">Update contacts</a></li>
+				<li><span>Plant Profiling</span></li>
+				<li><a href="">New Crop</a></li>
+				<li><a href="">Review Crops</a></li>
+				<li><a href="">Harvest details</a></li>
+				<li><span>External Agents</span></li>
+				<li><a href="">Add New Contact</a></li>
+				<li><a href="">Search for Agents</a></li>
+				<li><span>Others</span></li>
+				<li><a href="">Manage waste collection</a></li>
+				<li><a href="">Activity log</a></li>
+			</ul>
+		</div>
+		<div class="main">
+			<h4 id="title">Overview</h4>
+			<div class="inner" id="inner">
+				<h5>Welcome to FARM A.I</h5>
+				<p><span>Please enter your
+				<input type="text" placeholder="farm name">
+				<input type="file">
+				</span>
+			<br>
+				Where do you want to start?
+				</p>
+				<div class="grid">
+				<button onclick="viewProfiles()"><div class="boxLeft">
+					<img src="images/profile.png" alt="profile">
+					<br><span>Manage Workers Profile</span>
+				</div></button>
+
+				<button onclick="newCrop()"><div class="boxRight">
+					<img src="images/tree.png" alt="crop">
+					<br><span>Define a new crop</span>
+				</div></button>
+
+				<div class="clearfix"></div>
+
+				<button onclick="uploadHistory()"><div class="boxLeft">
+					<img src="images/db.png" alt="History">
+					<br><span>Upload Data</span>
+				</div></button>
+
+				<button onclick="recycle()"><div class="boxLeft">
+					<img src="images/recycle.png" alt="Recycle">
+					<br><span>Recycle Waste</span>
+				</div></button>
+
+				<button onclick="forecast()"><div class="boxLeft">
+					<img src="images/predict.png" alt="predict">
+					<br><span>Forecast Waste</span>
+				</div></button>
+				</div>
+
+			</div>
+
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+
+
+	<footer>
+		<p class="footer">Designed With <img src="images/love.png" alt="love"> from FUNAAB CSC Dept &copy 2018</p>
+	</footer>
+
+</body>
+
+</html>
