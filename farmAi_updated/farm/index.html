@@ -1,0 +1,454 @@
+<html lang="en">
+    <head>
+        <title>
+                Neural Network
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <link rel="stylesheet" href="bootstrap.min.css"/>
+        
+        <style>
+            body{
+                
+                background-color: #240B57;
+            }
+        </style>
+        <script>
+                $(document).ready(function(){
+                    
+                            var smallestOnHarvestWaste = 0; // request id = 9
+                            var highestOnHarvestWaste = 0;  // request id = 10
+                            var smallestPostHarvestWaste = 0; // request id = 11
+                            var highestPostHarvestWaste = 0; // request id = 12
+                    
+                            var smallestQtyPlanted = 0; // request id = 5
+                            var highestQtyPlanted =0;  // request id = 6
+                    
+                            var crop_id = 1;
+                            var smallestQtyHarvested = 0; // request id = 7
+                            var highestQtyHarvested = 0; // request id = 8
+                    
+                            var w = 0.5;
+                            var w1 = 0.5;
+                            var w2 = 0.5;
+                            var w3 = 0.5;
+                            
+                            var b = 0.3;
+                            var b1 = 0.3;
+                            var b2 = 0.3;
+                    
+                            var learningRate = 0.0001;
+                            var dataObject = {};
+                            
+                                
+                            function normalize(numb, min, max)
+                            {
+                                
+                                return (numb - min) / (max-min);
+                            }
+                            
+                            function denormalize(normalizedNumb, min, max)
+                            {
+                                
+                               return (normalizedNumb * (max - min)) + min;
+                            }
+                    
+                            function getSmallestQtyPlanted()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '5'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            smallestQtyPlanted = parseInt(response); // Convert to integer
+
+                                        }
+
+
+                                });
+                            }
+                            
+                    
+                            function getHighestQtyPlanted()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '6'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            highestQtyPlanted = parseInt(response); // Convert to integer
+                                           
+
+                                        }
+
+
+                                });
+                            }
+                            
+                            function getHighestQtyHarvested()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '8'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            highestQtyHarvested = parseInt(response); // Convert to integer
+
+                                        }
+
+
+                                });
+                            }
+                    
+                            function getSmallestQtyHarvested()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '7'},
+                                        dataType:"text",
+                                        async: false,
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            smallestQtyHarvested = parseInt(response); // Convert to integer
+                                        
+                                        }
+
+
+                                });
+                            }
+                            
+                            function getSmallestOnHarvestWaste()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '9'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            smallestOnHarvestWaste = parseInt(response); // Convert to integer
+                                           
+                                        }
+
+
+                                });
+                            }
+                    
+                            function getHighestOnHarvestWaste()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '10'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            highestOnHarvestWaste = parseInt(response); // Convert to integer
+
+                                        }
+
+
+                                });
+                            }   
+                            
+                            function getSmallestPostHarvestWaste()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '11'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data
+                                            smallestPostHarvestWaste = parseInt(response); // Convert to integer
+                                        
+
+                                        }
+
+
+                                });
+                            }
+                            
+                            function getHighestPostHarvestWaste()
+                            {
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '12'},
+                                        async: false,
+                                        dataType:"text",
+                                        success:function(response)
+                                        {
+                                            //storing the data   
+                                            highestPostHarvestWaste = parseInt(response); // Convert to integer
+                                        }
+
+                                });
+                            }
+                    
+                                               
+                            function getDataAndTrain()
+                            {
+                                
+                                
+
+                                $.ajax({
+
+                                        type:'post',
+                                        url: "farmresponse.php",
+                                        data: {'request': '1'}, // request id = 1
+                                        dataType:"json",
+                                        success:function(response)
+                                        {
+                                            
+                                            intializeSmallestAndHighestVariables();
+                                            trainNetwork(100000,response);
+
+                                        },
+                                        error:function() 
+                                        {
+                                                console.log("error occured");
+                                        }
+
+                                });
+
+                            }
+                            function generateRandomNumber(min, max)
+                            {
+                                
+                                //max is exclusive
+                                return Math.floor(Math.random() * (max - min + 1)) + min;
+                            }
+
+
+                            function harvestPrediction(qtyPlanted)
+                            {
+
+                                return (w * qtyPlanted * b1);
+
+                            }
+                    
+                            function onHarvestWastePrediction(qtyPlanted)
+                            {
+                                return (w3 * qtyPlanted * b2)
+                            }
+                            
+                            function postHarvestWastePrediction(qtyPlanted, qtyHarvested)
+                            {
+                                
+                                return (w1 * qtyPlanted) + (w2 * qtyHarvested) + b;
+                            }
+                    
+                            function predictionCost(prediction, lowestTarget, highestTarget, target)
+                            {
+                                return -2 * ((normalize(target,lowestTarget,highestTarget)) - prediction);
+                            }
+                    
+                            function intializeSmallestAndHighestVariables()
+                            {
+                                   getSmallestOnHarvestWaste();
+                                
+                                   getSmallestPostHarvestWaste();
+
+                                   getSmallestQtyPlanted();
+
+                                   getSmallestQtyHarvested();
+
+                                   getHighestOnHarvestWaste();
+
+                                   getHighestPostHarvestWaste();
+
+                                   getHighestQtyPlanted();
+
+                                   getHighestQtyHarvested();
+
+                                $('#progress').css("width",  "50%");
+                                 $('#progress').text('50%');
+                                    
+                            }
+                    
+                    //=======================Training=============================================================
+                            function trainNetwork(loop, dataObject)
+                            {
+                           
+                                var index = 0; 
+                                var data = dataObject[0];
+                                var harvestPred = 0;
+                                var harvestCost = 0;
+                                var qtyPlanted = 0;
+                                var qtyHarvested = 0;
+                                
+                               
+                                
+                                for(i=1; i<= loop; ++i)
+                                    {
+                                            
+                                            index = generateRandomNumber(0,dataObject[0].length); 
+                                            
+                                            data = dataObject[index];
+                                            
+                                            qtyPlanted = data[1];
+                                            
+                                           
+                                            qtyHarvested = data[2];
+                                            
+                                            
+                                            //perform training logic and update 
+                                            harvestPred = harvestPrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted));
+                                            
+                                            
+                                            harvestCost = predictionCost(harvestPred,smallestQtyHarvested, highestQtyHarvested,qtyHarvested);
+                                        
+                                            
+                                            var onHarvestWastePred = onHarvestWastePrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted));
+                                            var onHarvestWasteCost = predictionCost(onHarvestWastePred,smallestOnHarvestWaste, highestOnHarvestWaste,data[3]); // data[3] points to on_harvest_waste column
+                                        
+                                            var postHarvestWastePred = postHarvestWastePrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted), normalize(qtyHarvested, smallestQtyHarvested, highestQtyHarvested));
+                                            var postHarvestWasteCost = predictionCost(postHarvestWastePred,smallestPostHarvestWaste, highestPostHarvestWaste,data[4]);
+                                        
+                                            //=================Updating parameters============================================
+                                            
+                                            w -= learningRate * harvestCost * normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted);
+                                            b1 -= learningRate * harvestCost;
+                                            w3 -= learningRate * onHarvestWasteCost * normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted);
+                                            b2 -= learningRate * onHarvestWasteCost ;
+                                            w1 -= learningRate * postHarvestWasteCost * normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted);
+                                            w2 -= learningRate * postHarvestWasteCost * normalize(qtyHarvested, smallestQtyHarvested, highestQtyHarvested);
+                                            b -= learningRate * postHarvestWasteCost;
+                                            
+                                            
+                                        //=======================progress===============================================
+                                           
+                                           
+                                      
+                                    }
+                                 $('#progress').css("width",  "100%");
+                                 $('#progress').text('100%');
+                                
+                            }
+                    
+                    
+                            
+                            //=================================Main===============================================================
+                            
+                            $('#predict').click(function(){
+                                   
+                                    var qtyPlanted = parseInt($('#qty_planted').val());
+                                    var prediction = "";
+                                    var predictedQtyOfHarvest = denormalize( harvestPrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted)), smallestQtyHarvested,highestQtyHarvested);
+                                
+                                    prediction += "<td>"+Math.floor(predictedQtyOfHarvest)+"</td>";
+                                
+                                    var predictedOnHarvestWaste = denormalize(onHarvestWastePrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted)), smallestOnHarvestWaste,highestOnHarvestWaste);
+                                
+                                    prediction += "<td>"+Math.floor(predictedOnHarvestWaste)+"</td>";
+                                
+                                    var predictedPostHarvestWaste = denormalize(postHarvestWastePrediction(normalize(qtyPlanted,smallestQtyPlanted,highestQtyPlanted), normalize(predictedQtyOfHarvest, smallestQtyHarvested, highestQtyHarvested)), smallestPostHarvestWaste, highestPostHarvestWaste);
+                                
+                                    prediction += "<td>"+Math.floor(predictedPostHarvestWaste)+"</td>";
+                                
+                                    $("#response").html(prediction);
+                                    
+                                
+                                
+                            });
+                            
+                                                        
+                            $('#train').click(function(){
+                                    
+                                    getDataAndTrain();
+                            });
+                            
+                    
+                            
+                    
+                });
+                
+        </script>
+    </head>
+    
+    
+    <body>
+        <div class="container">
+            <div class="jumbotron" style="margin-top: 5%">
+                <p class="display-4">Accenture Neural Predictor</p><br/>
+                
+                <div class="form-group">
+                    <button id="train" type="button" class="btn btn-primary">
+                            Train Network
+                    </button>
+                    
+                </div>
+                <div class="form-group">
+                    <div class="progress" style="width:100%; background-color: aliceblue">
+                        <div id="progress" class="progress-bar progress-bar-striped active">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="qty_planted">Quantity Planted</label>
+                    <input id="qty_planted" class="form-control" type="number"> 
+                </div>
+                
+                <div class="form-group">
+                    <button id = "predict" type="button" class="btn btn-success">
+                            Make prediction
+                    </button> 
+                </div>
+                    <div class="form-group">
+                        
+                        <table class="table table-responsive table-bordered table-striped" >
+                                <h5 >Predictions</h5><br/>
+                            <thead style="background-color:#240B57; color: white">
+                                
+                                <th>Estimated Qty of Harvest</th>
+                                <th>Estimated Qty of On-harvest waste</th>
+                                <th>Estimated Qty of Post-harvest waste</th>
+                            </thead>
+                            <tbody>
+                                <tr id="response">
+                                
+                                </tr>
+                            </tbody>
+                        
+                        </table>
+                    
+                    </div>
+            
+                    
+            </div>
+            
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,29 @@
+***************************************************************************
+*		How to integrate the front and backend 	                  *
+*		@Author sikru_moshood		  			  *
+***************************************************************************
+
+**Description**
+
+--> The problem solved is a Regression problem: estimated prediction is made using Neural network.
+--> The network is trained on the client side where an ajax request with id=1 is sent to the server to archieve all
+records currently in the 'farm' database. 
+--> Every ajax request has its attached id-check code for more info.
+--> To bind your own front end, as the one used is just a demo:
+	1) You have to make an ajax request to get records of crops that are yet to be harvested instead of the one i made to get the entire record e.g
+		write a query with condition as in: where qty_harvested = 0 and qty_of_on_harvest_waste = 0 and qty_of_post_harvest_waste =0
+		-->This is because you only want to predict for crops that are yet to be harvested.
+		-->Then output the prediction for each record from received along with the crop type and date if you want... Just modify the code as you wish
+	2) You also want to show the crop type when the prediction is made: That can be easily done by using crop_id
+
+
+**DB and Front end Setup***
+
+--> Just create a database called 'farm' and import the farm_info.sql to initialize the table.
+	Note that the Neural Network algorithm is dependent on the table columns and order.However, you can add additional columns
+--> copy the 'farm' folder to your www directory
+ 
+
+
+**Note**
+--> The data used to train the network is just a dummy data.
