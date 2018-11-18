@@ -3,38 +3,50 @@ function addprof() {
   document.getElementById('active').innerHTML = 'Add Profile';
   document.getElementById('title').innerHTML = 'Add Profile';
   var output = ``;
-  output += `				<h5>Welcome to Add Profiile</h5>
-  				<p><span>Please enter your
-  				<input type="text" placeholder="farm name"></span>
-  			<br>
-  				Where do you want to start?
-  				</p>
-  				<div class="grid">
-  				<a href=""><div class="boxLeft">
-  					<img src="images/profile.png" alt="profile">
-  					<br><span>Manage Workers Profile</span>
-  				</div></a>
+  output += `
+        <h5>Welcome to Add Profile</h5>
+        <form action="">
+        	<div class="form">
+          <fieldset>
+            <label for="">First Name: </label>
+            <input type="text" id="fname" name="fname" required="">
+          </fieldset>
+          <fieldset>
+            <label for="">Last Name: </label>
+            <input type="text" id="lname" name="lname">
+          </fieldset>
+          <fieldset>
+            <label for="">Email: </label>
+            <input type="text" id="email" name="email">
+          </fieldset>
+          <fieldset>
+            <label for="">Phone</label>
+            <input type="text" id="phone" name="phone">
+          </fieldset>
+          <fieldset>
+            <label for="">Address: </label>
+            <input type="text" id="address" name="address">
+          </fieldset>
+          <button type="submit" onclick="addNewWorker(e)" name="add_worker">Add New Worker</button>
 
-  				<a href=""><div class="boxRight">
-  					<img src="images/tree.png" alt="profile">
-  					<br><span>Define a new crop</span>
-  				</div></a>
 
+        </div>
 
-  				<a href=""><div class="boxLeft">
-  					<img src="images/recycle.png" alt="profile">
-  					<br><span>Recycle Waste</span>
-  				</div></a>
-
-  				<a href=""><div class="boxLeft">
-  					<img src="images/predict.png" alt="predict">
-  					<br><span>Forecast Waste</span>
-  				</div></a>
-  				</div>
+      </form>
 
   			</div>
 `;
   document.getElementById('inner').innerHTML = output;
+}
+
+function addNewWorker(e) {
+  e.preventDefault();
+  var fname = document.getElementById('fname').value;
+  var lname = document.getElementById('lname').value;
+  var email = document.getElementById('email').value;
+  var phone = document.getElementById('phone').value;
+  var address = document.getElementById('address').value;
+  console.log("New worker added"+lname+fname+email+phone+address);
 }
 
 function home() {
@@ -47,7 +59,7 @@ function home() {
   <input type="text" placeholder="farm name">
   <input type="file">
   </span>
-<br>
+  <br>
   Where do you want to start?
   </p>
   <div class="grid">
@@ -101,4 +113,9 @@ function uploadHistory() {
 function doUploadHistory() {
   console.log("do Upload is clicked");
   document.getElementById('inner').innerHTML = output;
+}
+
+function farmName() {
+  console.log("Farm Name Entered");
+  document.getElementById('farmName').innerHTML = '';
 }
